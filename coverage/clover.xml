@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1579119839915" clover="3.2.0">
+  <project timestamp="1579119839916" name="All files">
+    <metrics statements="18" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1" elements="22" coveredelements="15" complexity="0" loc="18" ncloc="18" packages="2" files="2" classes="2"/>
+    <package name="src.helpers">
+      <metrics statements="15" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1"/>
+      <file name="offWordValidator.js" path="/home/andreskairos/Documentos/blog_mevn/src/helpers/offWordValidator.js">
+        <metrics statements="15" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="test">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="offWords.fixture.js" path="/home/andreskairos/Documentos/blog_mevn/test/offWords.fixture.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
