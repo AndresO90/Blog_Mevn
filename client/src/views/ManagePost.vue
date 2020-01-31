@@ -3,11 +3,11 @@
      <div class="card">
     <div class="card-header bg-primary">
         <h3 class="card-title text-white">
-            <i class="fas fa-comment-dots green"></i> CREATE A NEW POST
+            <i class="fas fa-comment-dots green"></i> ADMIN YOU CAN CREATE A NEW POST
         </h3>
     </div>
     <div class="card-body">
-        <form  @submit.prevent="newPost"  method="POST" enctype="multipart/form-data">
+        <form  @submit.prevent="newAdminPost"  method="POST" enctype="multipart/form-data">
            <div class="form-group">
                 <input type="text" v-model="title" name="title" class="form-control" placeholder="Title for the Post" required>
             </div>
@@ -39,7 +39,7 @@
      <div v-if="editBtnPush" class="card">
     <div class="card-header bg-primary">
         <h3 class="card-title text-white">
-            <i class="fas fa-edit green"></i> EDIT YOUR POST !!
+            <i class="fas fa-edit green"></i> EDIT SELECTED POST !!
         </h3>
     </div>
     <div class="card-body">
@@ -75,7 +75,7 @@
     <div class="card edit_delete" >
     <div class="card-header bg-primary">
         <h3 class="card-title text-white">
-            <i class="far fa-edit green"></i> EDIT OR DELETE YOUR POST
+            <i class="far fa-edit green"></i> YOU CAN EDIT OR DELETE ANY POST
         </h3>
     </div>
     <div class="card-body">
@@ -88,8 +88,6 @@
       img-width="1024"
       img-height="480"
    >
-   
-   
     <b-carousel-slide v-for="post in posts" :key="post._id"  img-src="https://1.bp.blogspot.com/-WLluOEU4Q8k/T2Bv5LsOurI/AAAAAAAAA30/jWW3icKheV8/s1600/fondo-blanco.gif">
     <div class="card-body" :id="post._id"> 
     <p id="title">{{post.title}}</p>
@@ -105,12 +103,6 @@
 </div>
 </div>
 
-
-
-
-
-
-
 </div>
  
 
@@ -121,7 +113,7 @@ import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios'
 
 export default {
-    computed: mapGetters(['posts','user']),
+    computed: mapGetters(['posts','admin']),
 data() {
         return {
             title:"",
@@ -140,15 +132,15 @@ data() {
         };
     },
      methods: {
-        ...mapActions(['createPost', 'getAllUserPosts', 'getProfile', 'deletePost', 'editPost']),
-        async newPost() {
+        ...mapActions(['createAdminPost', 'getAllUserPosts', 'getAdminProfile', 'deleteAdminPost', 'editAdminPost']),
+        async newAdminPost() {
             let post = {
                 title: this.title,
                 text: this.text,
                 image: this.image
-            };
+            }
             try {
-                const res = await this.createPost(post)
+                const res = await this.createAdminPost(post)
                 if(res.data.success) {
                     location.reload();
                 }
@@ -171,8 +163,8 @@ data() {
         const idPost = event.target.parentElement.id;
         const res = confirm("Are you sure you want to delete this post?")
              if(res) {
-                await this.deletePost(idPost); 
-                location.reload();
+                await this.deleteAdminPost(idPost); 
+                 this.$router.push('/')
              }
       },
         selectImage(event) {
@@ -201,12 +193,11 @@ data() {
                 text: this.editText,
                 image: this.editImage
             };
-
             try {
                 const editPostId = this.editPostId;
-                const res = await this.editPost({editPostId:editPostId,editPost:editPost})
+                const res = await this.editAdminPost({editPostId:editPostId,editPost:editPost})
                     if(res.data.success) {
-                         location.reload();
+                        this.$router.push('/')
                      }
             } catch {
                     const errors = document.querySelector(".alert")
@@ -232,8 +223,7 @@ data() {
         }
     },
       async created(){
-          const profile = await this.getProfile();
-          await this.getAllUserPosts(profile);
+          await this.getAdminProfile();
         },    
 }
 </script>

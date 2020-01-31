@@ -28,8 +28,8 @@ commentController.createComment = async(req,res) => {
                 email:user.email,
                 gravatar: md5(user.email)
                 });
-                const comment = await newComment.save(); 
-                post.comments.push({userName:user.userName,comment: text,gravatar:md5(user.email)});
+                await newComment.save(); 
+                post.comments.push({commentId: newComment._id,userName:user.userName,comment: text,gravatar:md5(user.email)});
                 await post.save();
                 res.status(200).json({success: true, message: "Comment is create correctly!"})
         }  
@@ -67,7 +67,7 @@ commentController.deleteComment = async(req,res) => {
         res.status(400).json({success: false, message: "Comment not found"});
     } else {
         await comment.remove();
-        // TAREA que se borre tmb en la entrada
+        
         res.status(200).json({success: true, message: "Comment delete correctly"});
     }
 

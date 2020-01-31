@@ -10,8 +10,6 @@ Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
 
-
-
 Vue.config.productionTip = false
 
 // Setting up default vue's modules for api calls
@@ -19,10 +17,13 @@ Vue.prototype.$http = axios;
 
 // Load the token from the localStorage
 const token = localStorage.getItem("token");
+const adminToken = localStorage.getItem("Admintoken")
 
 //Is there is any token we will simply append defaut axios auth headers
 if(token) {
   Vue.prototype.$http.defaults.headers.common['Authorization'] = token;
+} else if(adminToken) {
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = adminToken;
 }
 
 new Vue({

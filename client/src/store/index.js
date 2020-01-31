@@ -5,6 +5,7 @@ import Auth from '../Warehouse/Auth';
 import Posts from '../Warehouse/Posts';
 import Comments from '../Warehouse/Comments'
 import helpers from '../Warehouse/helpers'
+import Admin from '../Warehouse/Admin'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     Auth,
     Posts,
     Comments,
-    helpers
+    helpers,
+    Admin
   },
   state: {
   },

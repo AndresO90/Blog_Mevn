@@ -35,19 +35,42 @@ export default {
         }
     },
     methods: {
-        ...mapActions(["login"]),
+        ...mapActions(["login","loginAdmin"]),
         async loginUser() {
             let user = {
                 userName:this.userName,
                 password:this.password
             };
-            const res = await this.login(user);
+            try {
+                let res = await this.login(user);
                 if(res.data.success) {
-                    this.$router.push('/profile')
+                    this.$router.push('/')
                 }
+            }
+            catch {
+                let admin = {
+                      userName:this.userName,
+                password:this.password
+                }
+                 try {
+                let res = await this.loginAdmin(admin);
+                if(res.data.success) {
+                    this.$router.push('/')
+                }
+            }catch {
+                const errors = document.querySelector(".alert")
+                if(errors.style.display=="none") {
+                    errors.style.display="block"
+                }
+                setTimeout(()=> {
+                    errors.style.display="none"
+                },3000); 
+            }
+                
+            }
         }
     }
-}
+};
 </script>
 
 <style scoped>

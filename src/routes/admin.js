@@ -10,15 +10,11 @@ router.post('/admin/register', adminController.create);
 router.post('/admin/login', adminController.login);
 
 router.get('/admin/profile', passport.authenticate('jwt', { session: false}), (req, res) => {
-    console.log(req)
+    console.log("req111111111111111",req);
     return res.json({
         admin: req.user
     });
 });
-// Get all Users
-//router.get('/admin/users', passport.authenticate('jwt', { session: false}), adminController.getAllUsers)
-// Get a specific User
-//router.get('/admin/users/:userId', passport.authenticate('jwt', { session: false}), adminController.getAllUsers)
 
 // Create a Post
 router.post('/admin/:adminId/post', passport.authenticate('jwt', { session: false}),adminController.createPost);
@@ -44,6 +40,8 @@ router.delete('/admin/:adminId/post/:idPost/comment/:idComment',passport.authent
 router.post('/admin/:adminId/offword', adminController.createWord);
 // Get a OffensiveWord
 router.get('/admin/:adminId/offword/:idOffensiveWord', adminController.getWord);
+// Get All OffensiveWords
+router.get('/admin/:adminId/offwords',adminController.getAllOffWords)
 // Edit OffensiveWord
 router.put('/admin/:adminId/offword/:idOffensiveWord', adminController.editWord);
 // Delete a OffensiveWord

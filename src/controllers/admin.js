@@ -66,7 +66,7 @@ bcrypt.compare(req.body.password, admin.password).then(isMatch => {
             if (err) throw err;
             res.status(200).json({
                 success: true,
-                token: `Bearer ${token}`,
+                Admintoken: `Bearer ${token}`,
                 admin: admin,
                 msg: "Hurry! You are now logged in."
             });
@@ -239,6 +239,7 @@ adminController.editComment = async(req,res) => {
 }
 // Delete a Commen
 adminController.deleteComment = async(req,res) => {
+       
     const admin = await Admin.findOne({_id:req.params.adminId});
     if(admin == null) {
         res.status(400).json({success:false, msg:"Admin not found"});
@@ -248,7 +249,18 @@ adminController.deleteComment = async(req,res) => {
         res.status(400).json({success: false, message: "Comment not found"});
     } else {
         await comment.remove();
-        // TAREA que se borre tmb en la entrada 
+        const postComment = await Post.findById(req.params.idPost);
+        
+        postComment.comments.forEach((element,index) => {
+            
+            if(element.commentId == req.params.idComment){
+                postComment.comments.splice(index,1)
+                console.log("element.commentId",element.commentId);
+                console.log("req.params.idComment",req.params.idComment);
+            }
+        });
+        await postComment.save();
+       
         res.status(200).json({success: true, message: "Comment delete correctly"});
     }
 }
@@ -272,6 +284,19 @@ adminController.createWord = async(req,res) => {
             res.status(200).json({success: true, message: "OffensiveWord is create correctly!"})
     }
     
+};
+// Get All OffensiveWords
+adminController.getAllOffWords = async(req,res) => {
+    const admin = await Admin.find({_id:req.params.adminId});
+    if(admin == null) {
+        res.status(400).json({success:false, msg:"Admin not found"});
+    } 
+    const offensiveWord = await OffensiveWords.find({});
+    if(!offensiveWord) {
+        res.status(400).json({success: false, message: "Words not found"});
+    }else {
+        res.status(200).json({success: true,msg: offensiveWord});
+    }
 };
 // Get an OffensiveWord
 adminController.getWord = async(req,res) => {
@@ -317,7 +342,6 @@ if(!offensiveWord) {
     res.status(400).json({success: false, message: "OffensiveWord not found"});
 } else {
     await offensiveWord.remove();
-    // TAREA que se borre tmb en la entrada 
     res.status(200).json({success: true, message: "OffensiveWord delete correctly"});
 }
 

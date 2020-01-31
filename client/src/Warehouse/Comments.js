@@ -17,6 +17,9 @@ const actions = {
   // Create a Comment
   async createComment({ commit }, commentData) {
     try {
+          /* eslint-disable no-console */
+     console.log("THIS COMMENT",this);
+     /* eslint-enable no-console */
         commit('createComment_request');
         let res = await axios.post("http://localhost:3000/users"+window.document.location.pathname+"/comment", commentData);
 

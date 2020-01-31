@@ -16,7 +16,7 @@ publicController.getPost = async(req,res) =>{
 };
 // Get All Post in Db without comments
 publicController.getAllPost = async(req,res) =>{
-    const posts= await Post.find({},['author','userName','image','title', 'text']).limit(12).sort({ date : -1});
+    const posts= await Post.find({},['author','userName','image','title', 'text']).limit(15).sort({ date : -1});
     if(!posts) {
         res.status(400).json({success: false, message: "The are not Post yet"});
     } else {

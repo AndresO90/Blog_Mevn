@@ -5,25 +5,29 @@ const state = {
     token: localStorage.getItem('token') || '',
     user: {},
     status: '',
-    error: null
+    error: null,
+    userStatistics:{},
 };
 
 const getters = {
-    isLoggedIn: state => !!state.token,                   //     isLoggedIn: function(state) {
-    authState: state => state.status,                     // if(state.token !='') {
-    user: state => state.user,                            //     return true
-    error: state => state.error                           // }else {                                                                                                  
-};                                                        //     return false   }}
+    isLoggedIn: state => !!state.token,                
+    authState: state => state.status,                   
+    user: state => state.user,                         
+    error: state => state.error,                                  
+    userStatistics: state => state.userStatistics,                                                                                        
+};                                                        
 
 const actions = {
-    //Login Action
+    //Login User Action
     async login({commit}, user) {
         commit('auth_request');
         try {
-            let res = await axios.post("http://localhost:3000/users/login", user);
+            const res = await axios.post("http://localhost:3000/users/login", user);
+            
         if (res.data.success) {
             const token = res.data.token;
             const user = res.data.user;
+            localStorage.setItem('token',token);
             axios.defaults.headers.common['Authorization'] = token;
             commit('auth_success', token, user);
         }
@@ -32,8 +36,9 @@ const actions = {
             commit('auth_error',err);
         }
     },
+
     // Register User
-    async register({ commit }, userData) {
+    async register({ commit }, userData) {  
         try {
             commit('register_request');
             let res = await axios.post("http://localhost:3000/users/register", userData);
@@ -50,6 +55,14 @@ const actions = {
         commit('profile_request');
         let res = await axios.get('http://localhost:3000/users/profile');
         commit('user_profile', res.data.user)
+        return res;
+    },
+    // Get User Statistics
+    async getUserStatistics({commit}) {
+        commit('userStatistics_request');
+        let res = await axios.get('http://localhost:3000/users/'+this.getters.user._id+'/Statistics');
+       
+        commit('userStatistics_data', res.data)
         return res;
     },
     // Logout the User
@@ -75,8 +88,7 @@ const mutations = {
     },
     auth_error(state,err) {
         state.error = err.response.data.msg
-    },
-
+    },  
     register_request(state) {
         state.error = null
         state.status = 'loading'
@@ -101,7 +113,13 @@ const mutations = {
     },
     user_profile(state, user) {
         state.user = user
-    }
+    }, 
+    userStatistics_request(state) {
+        state.status = 'loading'
+    },
+    userStatistics_data(state,statistics) {
+        state.userStatistics = statistics;
+    },
 };
 
 export default {

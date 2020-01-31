@@ -104,6 +104,8 @@ usersController.createPost =  async(req,res) => {
             comments
         });
         await newPost.save();
+        user.createdPosts.push(newPost._id);
+        await user.save();
         res.status(200).json({success: true, message: "Post is create correctly!"});
     }
     
@@ -161,7 +163,6 @@ usersController.editPost = async(req,res) => {
     } else {
     // Check if contains offensive words
     const arrOffWords = await validatorHelper.getOffWords(OffensiveWords); 
-    console.log()
     const checkOffWords = validatorHelper.offWordValidator(req.body.text,arrOffWords);
     const checkTitleOffWords = validatorHelper.offWordValidator(req.body.title,arrOffWords);
 
@@ -192,37 +193,67 @@ usersController.deletePost = async(req,res) => {
     if(!post) {
         res.status(400).json({success: false, message: "Post not found"});
     } else {
+        for(let comment of post.comments) {
+
+            let idComment = comment.commentId.toString()
+            const findComment = await Comment.findByIdAndDelete(idComment)
+            console.log("findComment",findComment);
+           
+        }
         await post.remove();
+
+       
+      
         res.status(200).json({success: true, message: "Post delete correctly"});
     }
 };
-// Add Likes
+// Add Likes  
 usersController.addLike = async(req,res) => {
+   
     const post = await Post.findOne({_id : req.params.idPost});
     if(!post) {
         res.status(400).json({success: false, message: "Post not found"});
     } else {
-        post.likes +=1;
-        await post.save();
-        res.status(200).json({success: true, message: "Like Added correctly"});
+        const userIdString = req.user._id.toString();
+        const findLike = post.likeOwner.findIndex(id=> id == userIdString);
+
+        if(findLike === -1) {
+            post.likes +=1;
+            post.likeOwner.push(req.user._id);
+            await post.save();
+            res.status(200).json({success: true, message: "Like Added correctly"});
+        } else {
+            res.status(400).json({ success:false, message: "Just one like per user!!"})
+        }
+        
     }
 };
 
 
-// Get All User Statistics
+// Get User Statistics
 usersController.getUserStatistics = async(req,res) =>{
     const user = await User.findById(req.params.id);
     const postNumber = await Post.find({userName:user.userName}); 
     const commentsNumber = await Comment.find({userName:user.userName});
-    const postviews = await Post.find({userName:user.userName},["views"])
-    const mapviews = postviews.map((total)=>{
-        return total+=total.views
+    const postviews = await Post.find({userName:user.userName},["views","likes"])
+
+   let totalViews = 0;
+   let totalLikes = 0;
+    for(let postview of postviews) {
+        totalViews += postview.views
+        totalLikes += postview.likes
+    };
+
+    res.status(200).json({
+        Posts: postNumber.length,
+        Comments: commentsNumber.length,
+        Views: totalViews,
+        Likes: totalLikes
     })
- console.log("postNumber",postNumber.length);
- console.log("commentsNumber",commentsNumber.length);
- console.log("postviews",postviews);
- console.log("user",user);
- console.log("mapviews",mapviews);
+    
+
 };
+
+
 
 module.exports = usersController;

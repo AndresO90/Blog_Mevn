@@ -52,7 +52,7 @@ export default {
     },
     methods: {
         ...mapActions(['register']),
-        registerUser() {
+        async registerUser() {
             let user = {
                 userName: this.userName,
                 password: this.password,
@@ -60,11 +60,22 @@ export default {
                 email: this.email,
                 name: this.name
             }
-            this.register(user).then(res => {
+            try {
+              const res = await this.register(user)
                 if(res.data.success) {
                     this.$router.push("login")
                 }
-            });
+            }catch {
+                 const errors = document.querySelector(".alert")
+                    if(errors.style.display=="none") {
+                        errors.style.display="block"
+                    }
+                    setTimeout(()=> {
+                    errors.style.display="none"
+                    },3000); 
+            }
+            
+            
         }
     }
 }

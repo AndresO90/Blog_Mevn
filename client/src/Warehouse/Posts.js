@@ -52,7 +52,7 @@ const actions = {
     //  Create new Post
     async createPost({ commit }, postData) {
         try {
-            let res = await axios.post("http://localhost:3000/users/mypost", postData);
+            let res = await axios.post("http://localhost:3000/users/createpost", postData);
             commit('createPost_request'); 
         if (res.data.success !== undefined) {
             commit('createPost_success');
@@ -183,13 +183,15 @@ const mutations = {
     },
 
     addLike_request(state) {
+        state.error = null
         state.status = 'loading'
     },
     addLike_success(state) {
+        state.error = null
         state.status = 'success'
     },
     addLike_error(state,err) {
-        state.error = err
+        state.postErrors = err.response.data.message
     }
 };
 

@@ -18,8 +18,24 @@ const routes = [{
   }, {
     path: '/mypost',
     name: 'post',
-    component: () => import('../views/MyPost_CreatePost.vue')
+    component: () => import('../views/MyPost_CreatePost.vue'),
+    meta: {
+      requiresAuth: true
+    }
+ 
   },
+  {
+    path: '/manageposts',
+    name: 'manageposts',
+    component: () => import('../views/ManagePost.vue'),
+
+  },
+  {
+    path: '/offensivewords',
+    name: 'offensivewords',
+    component: () => import('../views/OffensiveWords.vue')
+  },
+  
   {
     path: '/about',
     name: 'about',

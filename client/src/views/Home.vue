@@ -11,7 +11,7 @@
                     <div v-for="post in posts" :key="post._id" class="col-md-4 jumbotron">
                         <p>{{post.title}}</p>
                         <router-link :to="'/post/' + post._id">
-                        <img class="img-thumbnail" :src="require(`/home/andreskairos/Documentos/blog_mevn/src/public/uploads/${post.image}`)">
+                        <img class="img-thumbnail" :src="'http://localhost:3000/uploads/' + post.image">
                         </router-link>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="card">
                          <p>{{popular.title}}</p>
                     <router-link :to="'/post/' + popular._id">
-                        <img :src="require(`/home/andreskairos/Documentos/blog_mevn/src/public/uploads/${popular.image}`)" class="popImg w-100 img-thumbnail">
+                        <img :src="'http://localhost:3000/uploads/' + popular.image" class="popImg w-100 img-thumbnail">
                     </router-link>
                     </div>
                    
@@ -70,6 +70,9 @@
             await this.getAllPosts();
             await this.getPostStatistics();
             await this.getMostPopularPosts();
+              /* eslint-disable no-console */
+     console.log("HOME LOGIN",this);
+     /* eslint-enable no-console */
         }
     }
 </script>
