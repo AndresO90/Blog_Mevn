@@ -58,6 +58,6 @@ router.post('/upload', async(req,res) => {
     await fs.unlink(imageTempPath);
     res.json({msg:"Upload Ok"})
 });
-
+// User Statistics
 router.get('/users/:id/Statistics', passport.authenticate('jwt', { session: false}),usersController.getUserStatistics)
 module.exports = router;

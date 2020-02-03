@@ -48,7 +48,7 @@ const actions = {
 },
   // Logout the Admin
   async adminLogout({commit}) {
-    await localStorage.removeItem('token');
+    await localStorage.removeItem('Admintoken');
     commit('adminLogout');
     delete axios.defaults.headers.common['Authorization'];
     router.push('/login');

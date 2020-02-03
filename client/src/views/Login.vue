@@ -56,6 +56,13 @@ export default {
                 let res = await this.loginAdmin(admin);
                 if(res.data.success) {
                     this.$router.push('/')
+                     const errors = document.querySelector(".alert")
+                if(errors.style.display=="none") {
+                    errors.style.display="block"
+                }
+                setTimeout(()=> {
+                    errors.style.display="none"
+                },3000); 
                 }
             }catch {
                 const errors = document.querySelector(".alert")

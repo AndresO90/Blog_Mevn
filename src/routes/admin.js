@@ -10,7 +10,7 @@ router.post('/admin/register', adminController.create);
 router.post('/admin/login', adminController.login);
 
 router.get('/admin/profile', passport.authenticate('jwt', { session: false}), (req, res) => {
-    console.log("req111111111111111",req);
+
     return res.json({
         admin: req.user
     });
