@@ -16,11 +16,11 @@ commentController.createComment = async(req,res) => {
     const arrOffWords = await validatorHelper.getOffWords(OffensiveWords); 
     const checkOffWords = validatorHelper.offWordValidator(text,arrOffWords);
     if(checkOffWords.length > 0) {
-        res.status(400).json({success: false, message: `Post contains this offWords!,{${checkOffWords}}`})
+        res.status(400).json({success: false, message: `Comment contains this offWords!,{${checkOffWords}}`})
     }else{
         const post = await Post.findById(req.params.idPost);
         if(!post){
-            res.status(400).json({success: false, message: "Post not found"});
+            res.status(400).json({success: false, message: "Comment not found"});
         } else {
             let newComment = new Comment({
                 userName:user.userName,
@@ -43,7 +43,6 @@ commentController.editComment = async(req,res) => {
         res.status(400).json({success: false, message: `Post contains this offWords!,{${checkOffWords}}`})
     }else{
         const comment = await Comment.findOne({_id : req.params.idComment});
-        //const post = await Post.findById(req.params.idPost); !! TAREA hacer que se borre tmb en la entrada
         if(!comment) {
             res.status(400).json({success: false, message: "Comment not found"});
         } else {
@@ -67,7 +66,6 @@ commentController.deleteComment = async(req,res) => {
         res.status(400).json({success: false, message: "Comment not found"});
     } else {
         await comment.remove();
-        
         res.status(200).json({success: true, message: "Comment delete correctly"});
     }
 

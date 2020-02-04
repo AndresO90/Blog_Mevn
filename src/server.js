@@ -61,12 +61,8 @@ app.use(users);
 const admins = require('./routes/admin');
 app.use(admins);
 // Bring in the Public's routes
-const public = require('./routes/publicRouters');
-app.use(public);
+const publicRoutes = require('./routes/publicRouters');
 
+app.use(publicRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`server on port ${PORT}`);
-})
-
+module.exports=app;
