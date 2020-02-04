@@ -59,6 +59,10 @@ Al pulsar el botón de borrar nos pide una confirmación antes de poder borrar d
 Post es otra vista pública donde al haber pulsado sobre un post en home nos lleva a la info de ese post, donde podemos ver el titulo, la imagen el texto, un botón de LIKE(solo para usuarios logados),numero de likes, numero de vistas, el creador y cuánto hace que lo creó(gracias a la dependencia moment).
 Más abajo aparece el listado de comentarios y el formulario para crear uno nuevo(solo usuarios registrados).
 
+###### COMMENTS IN POST
+![COMMENT VIEW](https://github.com/AndresO90/Blog_Mevn/blob/master/src/public/uploads/commentsExample.png)
+En la parte inferior del post tenemos la posibilidad de añadir comentarios, y más abajo el listado de los mismos(si hay comentarios claro), además observamos que cada usuario que comenta tiene un avatar predeterminado(gracias al servicio de gravatar)
+
 ###### PROFILE USER
 ![PROFILE USER](https://github.com/AndresO90/Blog_Mevn/blob/master/src/public/uploads/profileUser.png)
 En ésta vista denemos una pequeña info del user junto a sus estadísticas personales desde que creó el usuario, tales como posts creados, total de comentarios escritos, total de vistas que tienen sus posts y el total de likes que les han dado.
