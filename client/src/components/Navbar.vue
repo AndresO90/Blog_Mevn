@@ -12,7 +12,7 @@
             <router-link to="/" class="nav-link"> <p class="onMouse">HOME</p>  <span class="sr-only">(current)</span></router-link>
       </li>
        <li class="nav-item active">
-            <router-link to="/mypost" class="nav-link" v-if="isLoggedIn"><p class="onMouse">MY POST/ NEW POST</p> <span class="sr-only">(current)</span></router-link>
+            <router-link to="/mypost" id="myPosts" class="nav-link" v-if="isLoggedIn"><p class="onMouse">MY POST/ NEW POST</p> <span class="sr-only">(current)</span></router-link>
       </li>
        <li class="nav-item active">
             <router-link to="/manageposts" class="nav-link" v-if="isAdmin && !isLoggedIn"><p class="onMouse">MANAGE POST</p> <span class="sr-only">(current)</span></router-link>
@@ -24,7 +24,7 @@
             <router-link to="/about" class="nav-link"><p class="onMouse">ABOUT</p></router-link> 
       </li>
       <li class="nav-item active" v-if="!isLoggedIn && !isAdmin">
-            <router-link to="/login" class="nav-link"><p class="onMouse">LOGIN</p></router-link> 
+            <router-link to="/login"  id="loginBtn" class="nav-link"><p class="onMouse">LOGIN</p></router-link> 
       </li>
       <li class="nav-item active" v-if="!isLoggedIn && !isAdmin">
             <router-link to="/register" class="nav-link" ><p class="onMouse">REGISTER</p></router-link> 

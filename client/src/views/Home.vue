@@ -7,11 +7,11 @@
                 <h3> <i class="fas fa-fire-alt"></i> RECENT POSTS UPLOADS</h3>
             </div>
             <div class="card-body">
-                <div class="row ">
+                <div class="row">
                     <div v-for="post in posts" :key="post._id" class="col-md-4 jumbotron">
                         <p>{{post.title}}</p>
                         <router-link :to="'/post/' + post._id">
-                        <img class="img-thumbnail" :src="'http://localhost:3000/uploads/' + post.image">
+                        <img :id="post._id" class="img-thumbnail" :src="'http://localhost:3000/uploads/' + post.image">
                         </router-link>
                     </div>
                 </div>

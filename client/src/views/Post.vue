@@ -40,7 +40,7 @@
     <div class="card-body">
             <form  @submit.prevent="newComment" method="POST">
             <div class="form-group">
-                <textarea v-model="text" name="comment" rows="2" class="form-control" placeholder="Your Comment"></textarea>
+                <textarea id="textCommentTextarea" v-model="text" name="comment" rows="2" class="form-control" placeholder="Your Comment"></textarea>
             </div>
             <div class="form-group">
             <button  class="btn btn-success" id="btn-comment">

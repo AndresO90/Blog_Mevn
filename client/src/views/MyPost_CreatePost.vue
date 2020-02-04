@@ -9,23 +9,23 @@
     <div class="card-body">
         <form  @submit.prevent="newPost"  method="POST" enctype="multipart/form-data">
            <div class="form-group">
-                <input type="text" v-model="title" name="title" class="form-control" placeholder="Title for the Post" required>
+                <input type="text" v-model="title" id="titlePostInput" name="title" class="form-control" placeholder="Title for the Post" required>
             </div>
             <div class="form-group">
                 <div class="input-group">
                     <div class="custom-file">
-                        <input type="file" @change="selectImage"  name="image" class="custom-file-input" 
-                          required>
+                        <input type="file" id="imgPostInput"  @change="selectImage"  name="image" class="custom-file-input" 
+                          >
                         <label class="custom-file-label" for="inputGroupFile">Choose image</label>
                     </div>        
                 </div>
             </div>
             <div class="form-group">
-                <textarea name="description" v-model="text" rows="2" class="form-control" placeholder="Text for your new Post"
+                <textarea name="description" id="textPostTextarea" v-model="text" rows="2" class="form-control" placeholder="Text for your new Post"
                     required></textarea>
             </div>
             <div class="form-group">
-                <button @click="uploadImage" type="submit" class="btn btn-outline-success">
+                <button id="uploadPostButton" @click="uploadImage" type="submit" class="btn btn-outline-success">
                     <i class="fa fa-upload"></i>
                     Upload Post
                 </button>
