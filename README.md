@@ -18,7 +18,11 @@
 - Jest: Test de la aplicación. (https://www.npmjs.com/package/jest)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Instalación y ejecución del proyecto.
+Tras clonar el proyecto, ya sea mediante línea de comandos o descargando el zip, será necesario, desde la consola, ejecutar "npm install" tanto en la carpeta principal como en la carpeta client.
+Para lanzar el proyecto necesitamos abrir dos terminales, una ubicada en la carpeta principal y lanzar "node src/app.js" para el servidor, y desde la carpeta client "npm run serve" para el cliente Vue.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ## Organicación del proyecto (carpetas y archivos que necesitan explicación).
 
 ###### => BACK-END: blog_mevn/src
